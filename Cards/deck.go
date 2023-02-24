@@ -30,3 +30,7 @@ func (d deck) pizazze() {
 		fmt.Println("Index: ", i, " The card is a(n) ", card)
 	}
 }
+
+func deal(d deck, handSize int) (deck, deck) {
+	return d[:handSize], d[handSize:]
+}
