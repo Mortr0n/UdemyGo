@@ -20,7 +20,7 @@ func newDeck() deck {
 
 	for _, cS := range cardSuits {
 		for _, cV := range cardValues {
-			cards = append(cards, fmt.Sprintln(cV, " of ", cS))
+			cards = append(cards, fmt.Sprintln(cV, "of", cS))
 		}
 	}
 	return cards
