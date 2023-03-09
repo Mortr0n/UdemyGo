@@ -1,2 +1,2 @@
 # UdemyGo
-Learning Go 
+Learning Go using a Udemy Course
