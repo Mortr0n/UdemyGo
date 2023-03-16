@@ -3,13 +3,14 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"time"
 )
 
 func main() {
 	links := []string{
 		"http://www.google.com",
 		"http://www.facebook.com",
-		"http://stackoverflow.com",
+		"http://www.udemy.com",
 		"http://golang.org",
 		"http://amazon.com",
 	}
@@ -27,9 +28,16 @@ func main() {
 		go checkLink(link, c)
 	}
 
-	for i := 0; i < len(links); i++ {
-		fmt.Println(<-c)
+	// Keep checking links forever.
+	for l := range c {
+		//? to fix the closure issue you need to take the variable in to the anonymous function so that its passed by value.  Notice
+		//? the link string and then the l when we call the function at the end
+		go func(link string) {
+			time.Sleep(5 * time.Second)
+			checkLink(link, c)
+		}(l)
 	}
+
 }
 
 //? ****** Ways of sending commmunication within channels *******
@@ -42,11 +50,11 @@ func main() {
 func checkLink(link string, c chan string) {
 	_, err := http.Get(link)
 	if err != nil {
-		fmt.Println(link + " errored and might be down!")
-		c <- "Might be down!"
+		fmt.Println(link, " errored and might be down!")
+		c <- link
 		return
 	}
 
-	fmt.Println(link + " appears to be working!")
-	c <- "It's appears to be working!"
+	fmt.Println(link, " appears to be working!")
+	c <- link
 }
