@@ -16,7 +16,8 @@ type person struct {
 	canDrive  bool
 	//? another way is to label the item and then the type instead of just having the type and key be the same
 	//? contact contactInfo
-	contactInfo
+	//? contactInfo
+	contactInfo contactInfo
 }
 
 func main() {
